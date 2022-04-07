@@ -1,5 +1,7 @@
+using ControleBiblioteca.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,11 +20,16 @@ namespace ControleBiblioteca
         }
 
         public IConfiguration Configuration { get; }
-
+        //configurar o entity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<LibaryContext>
+                (o => o.UseSqlServer(Configuration.
+                GetConnectionString("DataBase")));
+                //pega pelo nome  a string que foi colocada no appsettings
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
