@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleBiblioteca.Controllers
 {
-    public class LivroController : Controller
+    public class BookController : Controller
     {
         public IActionResult Index()
         {
