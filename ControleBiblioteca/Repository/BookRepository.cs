@@ -19,12 +19,37 @@ namespace ControleBiblioteca.Repository
             _libaryContext = libaryContext;
         }
 
+        public List<BookModel> FindAll()
+        {
+           return _libaryContext.Books.ToList();
+        }
+
+        public BookModel FindById(int Id)
+        {
+            return _libaryContext.Books.Find(Id);
+        }
 
         public BookModel Add(BookModel book)
         {
             _libaryContext.Books.Add(book);
             _libaryContext.SaveChanges();
             return book;
+        }
+
+        public BookModel Update(BookModel book)
+        {
+            BookModel bookModel = FindById(book.Id);
+
+            if (bookModel == null)
+                throw new System.Exception("Book não foi localizado");
+            bookModel.Name = book.Name;
+            bookModel.Author  = book.Author;
+            bookModel.PublishingCompany = book.PublishingCompany;
+
+            _libaryContext.Books.Update(bookModel);
+            _libaryContext.SaveChanges();
+            return bookModel;
+
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿@{
+﻿@model List<BookModel>
+@{
     ViewData["Title"] = "Listagem de Livros";
 }
 
 <div class="text-center">
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary" role="button" asp-controller="Livro" asp-action="Criar">Adicionar Novo Livro</a>
+        <a class="btn btn-primary" role="button" asp-controller="Book" asp-action="Create">Adicionar Novo Livro</a>
     </div>
     <br />
     <h1 class="display-4">Listagem de Livros</h1>
@@ -19,31 +20,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a role="button" class="btn btn-outline-primary" asp-controller="Book" asp-action="Editar">Editar</a>
-                        <a role="button" class="btn btn-outline-primary" asp-controller="Book" asp-action="ExcluirConfirmacao">Excluir</a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-            </tr>
-
+            @if (Model != null && Model.Any())
+            {
+                foreach (BookModel book in Model)
+                {
+                    <tr>
+                        <th scope="row">@book.Id</th>
+                        <td>@book.Name</td>
+                        <td>@book.Author</td>
+                        <td>@book.PublishingCompany</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-outline-primary"  asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit">Editar</a>
+                                <a role="button" class="btn btn-outline-primary"asp-route-id="@book.Id asp-controller="Book" asp-action="ExcluirConfirmacao">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>

@@ -1,4 +1,5 @@
 using ControleBiblioteca.Data;
+using ControleBiblioteca.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,11 @@ namespace ControleBiblioteca
                 .AddDbContext<LibaryContext>
                 (o => o.UseSqlServer(Configuration.
                 GetConnectionString("DataBase")));
-                //pega pelo nome  a string que foi colocada no appsettings
+            //pega pelo nome  a string que foi colocada no appsettings
+
+            services.AddScoped<IBookRepository, BookRepository>();
+            //toda vez que interface for invocada utilizar a interface de repositorio
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

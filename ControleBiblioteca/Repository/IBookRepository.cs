@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace ControleBiblioteca.Repository
 {
-    interface IBookRepository
+    public interface IBookRepository
     {
+        BookModel Update(BookModel book);
+
         BookModel Add(BookModel book);
+
+        List<BookModel> FindAll();
+
+        BookModel FindById(int id);
     }
 }
