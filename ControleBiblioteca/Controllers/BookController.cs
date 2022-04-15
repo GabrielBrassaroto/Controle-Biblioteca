@@ -42,17 +42,26 @@ namespace ControleBiblioteca.Controllers
             return View();
         }
 
-        public IActionResult ExcluirConfirmacao()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Create(BookModel bookModel)
         {
             _bookRepository.Add(bookModel);
             return RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int Id)
+        {
+            BookModel book = _bookRepository.FindById(Id);
+            return View(book);
+        }
+
+        public IActionResult DeleteConfirm(int Id)
+        {
+
+            _bookRepository.Delete(Id);
+            return RedirectToAction("Index");
+        }
+
 
 
         [HttpPost]
@@ -62,6 +71,5 @@ namespace ControleBiblioteca.Controllers
             _bookRepository.Update(book);
             return RedirectToAction("Index");
         }
-
     }
 }

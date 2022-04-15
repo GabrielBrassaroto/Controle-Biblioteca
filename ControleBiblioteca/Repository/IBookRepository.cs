@@ -10,6 +10,8 @@ namespace ControleBiblioteca.Repository
     {
         BookModel Update(BookModel book);
 
+        bool Delete(int Id);
+
         BookModel Add(BookModel book);
 
         List<BookModel> FindAll();

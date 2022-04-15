@@ -51,5 +51,19 @@ namespace ControleBiblioteca.Repository
             return bookModel;
 
         }
+
+
+        public bool Delete(int Id)
+        {
+            BookModel bookModel = FindById(Id);
+
+            if (bookModel == null)
+                throw new System.Exception("Book não foi localizado");
+
+            _libaryContext.Books.Remove(bookModel);
+            _libaryContext.SaveChanges();
+            return true;
+
+        }
     }
 }
