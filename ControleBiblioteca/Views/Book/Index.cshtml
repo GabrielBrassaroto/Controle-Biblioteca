@@ -5,9 +5,25 @@
 
 <div class="text-center">
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <a class="btn btn-primary" role="button" asp-controller="Book" asp-action="Create">Adicionar Novo Livro</a>
+        <a class="btn btn-primary" role="button" asp-controller="Book" asp-action="Create">New Book</a>
     </div>
     <br />
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+            This is a success alert—check it out!
+        </div>
+    }
+
+    @if (TempData["MensagemFalha"] != null)
+     {
+
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+            This is a warning alert—check it out!
+        </div>
+     }
     <h1 class="display-4">Listagem de Livros</h1>
     <table class="table">
         <thead>
@@ -31,7 +47,7 @@
                         <td>@book.PublishingCompany</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a role="button" class="btn btn-outline-primary" asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit">Editar</a>
+                                <a role="button" class="btn btn-outline-primary" asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit">Edit</a>
                                 <a role="button" class="btn btn-outline-primary" asp-route-id="@book.Id" asp-controller="Book" asp-action="Delete">Delete</a>
                             </div>
                         </td>

@@ -43,10 +43,23 @@ namespace ControleBiblioteca.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(BookModel bookModel)
+        public ActionResult Create(BookModel book)
         {
-            _bookRepository.Add(bookModel);
-            return RedirectToAction("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _bookRepository.Add(book);
+                    TempData["MensagemSucesso"] = "Book Registered Successfully";
+                    return RedirectToAction("Index");
+                }
+                return View(book);
+            }
+            catch (Exception ex)
+            {
+                TempData["MensagemFalha"] = $"Unregistered Book {ex.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Delete(int Id)
@@ -58,8 +71,26 @@ namespace ControleBiblioteca.Controllers
         public IActionResult DeleteConfirm(int Id)
         {
 
-            _bookRepository.Delete(Id);
-            return RedirectToAction("Index");
+            try
+            {
+                bool deleted = _bookRepository.Delete(Id);
+                if (deleted)
+                {
+                    TempData["MensagemSucesso"] = "Book Deleted Successfully";
+                }
+                else{
+
+                    TempData["MensagemFalha"] = $"Undeleted Book";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+
+
+                TempData["MensagemFalha"] = $"Undeleted Book {ex.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
 
@@ -67,9 +98,24 @@ namespace ControleBiblioteca.Controllers
         [HttpPost]
         public ActionResult Edit(BookModel book)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _bookRepository.Update(book);
+                    TempData["MensagemSucesso"] = "Book Edited Successfully";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
 
-            _bookRepository.Update(book);
-            return RedirectToAction("Index");
+                TempData["MensagemFalha"] = $"Unedited Book {ex.Message}";
+                return RedirectToAction("Index");
+            }
+
+
+            return View(book);
         }
     }
 }
